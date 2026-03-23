@@ -35,7 +35,8 @@
       "Bash(cmd //c \"mklink /J frontend-design C:\\\\Users\\\\畠中大地\\\\.agents\\\\skills\\\\frontend-design\")",
       "Bash(cmd //c \"mklink /J web-design-guidelines C:\\\\Users\\\\畠中大地\\\\.agents\\\\skills\\\\web-design-guidelines\")",
       "Bash(cmd //c \"mklink /J shadcn-ui C:\\\\Users\\\\畠中大地\\\\.agents\\\\skills\\\\shadcn-ui\")",
-      "Bash(cmd //c \"mklink /J tailwind-v4-shadcn C:\\\\Users\\\\畠中大地\\\\.agents\\\\skills\\\\tailwind-v4-shadcn\")"
+      "Bash(cmd //c \"mklink /J tailwind-v4-shadcn C:\\\\Users\\\\畠中大地\\\\.agents\\\\skills\\\\tailwind-v4-shadcn\")",
+      "Bash(xargs wc:*)"
     ]
   }
 }

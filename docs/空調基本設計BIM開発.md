@@ -51,14 +51,15 @@
        ↓
 10. IFC出力 → Rebro/Revit 連携
 ```
-
 ---
+
 
 ## 2. ノード体系
 
 ### 2.1 ノード階層
 
 ```
+
 Plant（施設）
 └── Building（建物）── ArchitectureRef（IFC建築躯体、表示のみ）
     └── Level（階）
