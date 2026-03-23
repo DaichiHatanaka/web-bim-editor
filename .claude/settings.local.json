@@ -17,7 +17,25 @@
       "Bash(npx turbo:*)",
       "Bash(bun install:*)",
       "Bash(SKIP_ENV_VALIDATION=true npx turbo:*)",
-      "Bash(printf:*)"
+      "Bash(printf:*)",
+      "Read(//c/Users/畠中大地/web-bim-editor/$HOME/web-bim-editor/.claude/**)",
+      "Bash(ln -s \"/c/Users/畠中大地/.agents/skills/frontend-design/\" frontend-design)",
+      "Bash(ln -s \"/c/Users/畠中大地/.agents/skills/web-design-guidelines/\" web-design-guidelines)",
+      "Bash(ln -s \"/c/Users/畠中大地/.agents/skills/shadcn-ui/\" shadcn-ui)",
+      "Bash(ln -s \"/c/Users/畠中大地/.agents/skills/tailwind-v4-shadcn/\" tailwind-v4-shadcn)",
+      "Bash(readlink:*)",
+      "Bash(cp -d \"$HOME/.claude/skills/frontend-design\" .)",
+      "Bash(cp -d \"$HOME/.claude/skills/web-design-guidelines\" .)",
+      "Bash(cp -d \"$HOME/.claude/skills/shadcn-ui\" .)",
+      "Bash(cp -d \"$HOME/.claude/skills/tailwind-v4-shadcn\" .)",
+      "Bash(cmd //c \"mklink /D frontend-design C:\\\\Users\\\\畠中大地\\\\.agents\\\\skills\\\\frontend-design\")",
+      "Bash(cmd //c \"mklink /D web-design-guidelines C:\\\\Users\\\\畠中大地\\\\.agents\\\\skills\\\\web-design-guidelines\")",
+      "Bash(cmd //c \"mklink /D shadcn-ui C:\\\\Users\\\\畠中大地\\\\.agents\\\\skills\\\\shadcn-ui\")",
+      "Bash(cmd //c \"mklink /D tailwind-v4-shadcn C:\\\\Users\\\\畠中大地\\\\.agents\\\\skills\\\\tailwind-v4-shadcn\")",
+      "Bash(cmd //c \"mklink /J frontend-design C:\\\\Users\\\\畠中大地\\\\.agents\\\\skills\\\\frontend-design\")",
+      "Bash(cmd //c \"mklink /J web-design-guidelines C:\\\\Users\\\\畠中大地\\\\.agents\\\\skills\\\\web-design-guidelines\")",
+      "Bash(cmd //c \"mklink /J shadcn-ui C:\\\\Users\\\\畠中大地\\\\.agents\\\\skills\\\\shadcn-ui\")",
+      "Bash(cmd //c \"mklink /J tailwind-v4-shadcn C:\\\\Users\\\\畠中大地\\\\.agents\\\\skills\\\\tailwind-v4-shadcn\")"
     ]
   }
 }
