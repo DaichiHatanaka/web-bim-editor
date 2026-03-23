@@ -19,6 +19,7 @@
   "scripts": {
     "build": "node ../../node_modules/typescript/bin/tsc --build",
     "dev": "node ../../node_modules/typescript/bin/tsc --build --watch",
+    "test": "node ../../node_modules/vitest/vitest.mjs run --config vitest.config.ts",
     "prepublishOnly": "npm run build"
   },
   "peerDependencies": {

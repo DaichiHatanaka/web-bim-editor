@@ -4,52 +4,6 @@ import { AnimatePresence, motion } from 'motion/react'
 import { forwardRef, useEffect, useRef } from 'react'
 import { cn } from './../../../../../lib/utils'
 
-export function handleTreeSelection(
-  e: React.MouseEvent,
-  nodeId: string,
-  selectedIds: string[],
-  setSelection: (s: any) => void,
-) {
-  if (e.metaKey || e.ctrlKey) {
-    if (selectedIds.includes(nodeId)) {
-      setSelection({ selectedIds: selectedIds.filter((id) => id !== nodeId) })
-    } else {
-      setSelection({ selectedIds: [...selectedIds, nodeId] })
-    }
-    return true
-  }
-
-  if (e.shiftKey && selectedIds.length > 0) {
-    const lastSelectedId = selectedIds[selectedIds.length - 1]
-    if (lastSelectedId) {
-      const nodes = Array.from(document.querySelectorAll('[data-treenode-id]'))
-      const nodeIds = nodes.map((n) => n.getAttribute('data-treenode-id') as string)
-
-      const startIndex = nodeIds.indexOf(lastSelectedId)
-      const endIndex = nodeIds.indexOf(nodeId)
-
-      if (startIndex !== -1 && endIndex !== -1) {
-        const start = Math.min(startIndex, endIndex)
-        const end = Math.max(startIndex, endIndex)
-        const range = nodeIds.slice(start, end + 1)
-
-        // We can keep the previous selections that were outside the range if we want,
-        // but standard file system shift-click replaces the selection with the range.
-        setSelection({ selectedIds: range })
-        return true
-      }
-    }
-    // Fallback: if range selection fails (e.g. node not visible in tree), just add to selection
-    if (!selectedIds.includes(nodeId)) {
-      setSelection({ selectedIds: [...selectedIds, nodeId] })
-      return true
-    }
-  }
-
-  setSelection({ selectedIds: [nodeId] })
-  return false
-}
-
 import { BuildingTreeNode } from './building-tree-node'
 import { CeilingTreeNode } from './ceiling-tree-node'
 import { DoorTreeNode } from './door-tree-node'

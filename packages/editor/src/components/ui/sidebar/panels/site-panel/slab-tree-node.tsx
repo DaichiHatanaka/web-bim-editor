@@ -1,10 +1,9 @@
 import type { SlabNode } from '@pascal-app/core'
-import { useViewer } from '@pascal-app/viewer'
 import Image from 'next/image'
-import { useState } from 'react'
-import useEditor from './../../../../../store/use-editor'
+import { useSceneNodeInteractions, useTreeNodeRenameState } from './site-panel-hooks'
+import { formatPolygonAreaName } from './site-panel-math'
 import { InlineRenameInput } from './inline-rename-input'
-import { handleTreeSelection, TreeNodeWrapper } from './tree-node'
+import { TreeNodeWrapper } from './tree-node'
 import { TreeNodeActions } from './tree-node-actions'
 
 interface SlabTreeNodeProps {
@@ -14,36 +13,11 @@ interface SlabTreeNodeProps {
 }
 
 export function SlabTreeNode({ node, depth, isLast }: SlabTreeNodeProps) {
-  const [isEditing, setIsEditing] = useState(false)
-  const selectedIds = useViewer((state) => state.selection.selectedIds)
-  const isSelected = selectedIds.includes(node.id)
-  const isHovered = useViewer((state) => state.hoveredId === node.id)
-  const setSelection = useViewer((state) => state.setSelection)
-  const setHoveredId = useViewer((state) => state.setHoveredId)
+  const { isEditing, startEditing, stopEditing } = useTreeNodeRenameState()
+  const { isSelected, isHovered, handleClick, handleMouseEnter, handleMouseLeave } =
+    useSceneNodeInteractions(node.id, { from: 'furnish', to: 'structure' })
 
-  const handleClick = (e: React.MouseEvent) => {
-    e.stopPropagation()
-    const handled = handleTreeSelection(e, node.id, selectedIds, setSelection)
-    if (!handled && useEditor.getState().phase === 'furnish') {
-      useEditor.getState().setPhase('structure')
-    }
-  }
-
-  const handleDoubleClick = () => {
-    setIsEditing(true)
-  }
-
-  const handleMouseEnter = () => {
-    setHoveredId(node.id)
-  }
-
-  const handleMouseLeave = () => {
-    setHoveredId(null)
-  }
-
-  // Calculate approximate area from polygon
-  const area = calculatePolygonArea(node.polygon).toFixed(1)
-  const defaultName = `Slab (${area}m²)`
+  const defaultName = formatPolygonAreaName('Slab', node.polygon)
 
   return (
     <TreeNodeWrapper
@@ -63,34 +37,16 @@ export function SlabTreeNode({ node, depth, isLast }: SlabTreeNodeProps) {
           defaultName={defaultName}
           isEditing={isEditing}
           node={node}
-          onStartEditing={() => setIsEditing(true)}
-          onStopEditing={() => setIsEditing(false)}
+          onStartEditing={startEditing}
+          onStopEditing={stopEditing}
         />
       }
       nodeId={node.id}
       onClick={handleClick}
-      onDoubleClick={handleDoubleClick}
+      onDoubleClick={startEditing}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onToggle={() => {}}
     />
   )
-}
-
-/**
- * Calculate the area of a polygon using the shoelace formula
- */
-function calculatePolygonArea(polygon: Array<[number, number]>): number {
-  if (polygon.length < 3) return 0
-
-  let area = 0
-  const n = polygon.length
-
-  for (let i = 0; i < n; i++) {
-    const j = (i + 1) % n
-    area += polygon[i]![0] * polygon[j]![1]
-    area -= polygon[j]![0] * polygon[i]![1]
-  }
-
-  return Math.abs(area) / 2
 }

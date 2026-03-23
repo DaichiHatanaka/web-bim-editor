@@ -38,34 +38,12 @@ import { cn } from './../../../../../lib/utils'
 import useEditor from './../../../../../store/use-editor'
 import { useUploadStore } from '../../../../../store/use-upload'
 import { InlineRenameInput } from './inline-rename-input'
+import { calculatePerimeter, calculatePolygonArea, formatPolygonAreaName } from './site-panel-math'
 import { TreeNode } from './tree-node'
 
 // ============================================================================
 // PROPERTY LINE SECTION
 // ============================================================================
-
-function calculatePerimeter(points: Array<[number, number]>): number {
-  if (points.length < 2) return 0
-  let perimeter = 0
-  for (let i = 0; i < points.length; i++) {
-    const [x1, z1] = points[i]!
-    const [x2, z2] = points[(i + 1) % points.length]!
-    perimeter += Math.sqrt((x2 - x1) ** 2 + (z2 - z1) ** 2)
-  }
-  return perimeter
-}
-
-function calculatePolygonArea(polygon: Array<[number, number]>): number {
-  if (polygon.length < 3) return 0
-  let area = 0
-  const n = polygon.length
-  for (let i = 0; i < n; i++) {
-    const j = (i + 1) % n
-    area += polygon[i]![0] * polygon[j]![1]
-    area -= polygon[j]![0] * polygon[i]![1]
-  }
-  return Math.abs(area) / 2
-}
 
 function useSiteNode(): SiteNode | null {
   const siteId = useScene((state) => {
@@ -1002,8 +980,7 @@ function ZoneItem({ zone, isLast }: { zone: ZoneNode; isLast?: boolean }) {
     }
   }, [isSelected])
 
-  const area = calculatePolygonArea(zone.polygon).toFixed(1)
-  const defaultName = `Zone (${area}m²)`
+  const defaultName = formatPolygonAreaName('Zone', zone.polygon)
 
   const handleClick = () => {
     setSelection({ zoneId: zone.id })

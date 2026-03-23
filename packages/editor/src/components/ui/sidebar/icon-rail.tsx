@@ -53,10 +53,13 @@ export function IconRail({ activePanel, onPanelChange, appMenuButton, className 
           <Tooltip key={panel.id}>
             <TooltipTrigger asChild>
               <button
+                aria-label={panel.label}
+                aria-pressed={isActive}
                 className={cn(
                   'flex h-9 w-9 items-center justify-center rounded-lg transition-all',
                   isActive ? 'bg-accent' : 'hover:bg-accent',
                 )}
+                data-testid={`sidebar-panel-${panel.id}`}
                 onClick={() => onPanelChange(panel.id)}
                 type="button"
               >
@@ -83,7 +86,9 @@ export function IconRail({ activePanel, onPanelChange, appMenuButton, className 
         <Tooltip>
           <TooltipTrigger asChild>
             <button
+              aria-label="Toggle theme"
               className="mb-2 flex h-9 w-9 items-center justify-center rounded-lg border border-border/50 bg-accent/40 text-foreground transition-all hover:bg-accent"
+              data-testid="theme-toggle"
               onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
               type="button"
             >

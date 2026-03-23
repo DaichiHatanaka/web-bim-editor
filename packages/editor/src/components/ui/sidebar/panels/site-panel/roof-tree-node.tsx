@@ -1,10 +1,8 @@
 import type { RoofNode } from '@pascal-app/core'
-import { useViewer } from '@pascal-app/viewer'
 import Image from 'next/image'
-import { useState } from 'react'
-import useEditor from './../../../../../store/use-editor'
+import { useSceneNodeInteractions, useTreeNodeRenameState } from './site-panel-hooks'
 import { InlineRenameInput } from './inline-rename-input'
-import { handleTreeSelection, TreeNodeWrapper } from './tree-node'
+import { TreeNodeWrapper } from './tree-node'
 import { TreeNodeActions } from './tree-node-actions'
 
 interface RoofTreeNodeProps {
@@ -14,32 +12,9 @@ interface RoofTreeNodeProps {
 }
 
 export function RoofTreeNode({ node, depth, isLast }: RoofTreeNodeProps) {
-  const [isEditing, setIsEditing] = useState(false)
-  const selectedIds = useViewer((state) => state.selection.selectedIds)
-  const isSelected = selectedIds.includes(node.id)
-  const isHovered = useViewer((state) => state.hoveredId === node.id)
-  const setSelection = useViewer((state) => state.setSelection)
-  const setHoveredId = useViewer((state) => state.setHoveredId)
-
-  const handleClick = (e: React.MouseEvent) => {
-    e.stopPropagation()
-    const handled = handleTreeSelection(e, node.id, selectedIds, setSelection)
-    if (!handled && useEditor.getState().phase === 'furnish') {
-      useEditor.getState().setPhase('structure')
-    }
-  }
-
-  const handleDoubleClick = () => {
-    setIsEditing(true)
-  }
-
-  const handleMouseEnter = () => {
-    setHoveredId(node.id)
-  }
-
-  const handleMouseLeave = () => {
-    setHoveredId(null)
-  }
+  const { isEditing, startEditing, stopEditing } = useTreeNodeRenameState()
+  const { isSelected, isHovered, handleClick, handleMouseEnter, handleMouseLeave } =
+    useSceneNodeInteractions(node.id, { from: 'furnish', to: 'structure' })
 
   // Calculate dimensions: length × total width (leftWidth + rightWidth)
   const totalWidth = node.leftWidth + node.rightWidth
@@ -64,13 +39,13 @@ export function RoofTreeNode({ node, depth, isLast }: RoofTreeNodeProps) {
           defaultName={defaultName}
           isEditing={isEditing}
           node={node}
-          onStartEditing={() => setIsEditing(true)}
-          onStopEditing={() => setIsEditing(false)}
+          onStartEditing={startEditing}
+          onStopEditing={stopEditing}
         />
       }
       nodeId={node.id}
       onClick={handleClick}
-      onDoubleClick={handleDoubleClick}
+      onDoubleClick={startEditing}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onToggle={() => {}}

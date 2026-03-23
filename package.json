@@ -2,15 +2,17 @@
   "name": "editor",
   "private": true,
   "scripts": {
-    "build": "turbo run build",
+    "build": "node ./node_modules/turbo/bin/turbo run build",
     "dev": "set -a && . ./.env 2>/dev/null; set +a; turbo run dev --env-mode=loose",
+    "test": "npm --prefix packages/core run test && npm --prefix apps/editor run test",
+    "test:ui": "node ./node_modules/turbo/bin/turbo run build && node ./node_modules/@playwright/test/cli.js test",
     "lint": "biome lint",
     "lint:fix": "biome lint --write",
     "format": "biome format --write",
     "format:check": "biome format",
     "check": "biome check",
     "check:fix": "biome check --write",
-    "check-types": "turbo run check-types",
+    "check-types": "node ./node_modules/turbo/bin/turbo run check-types",
     "kill": "lsof -ti:3002 | xargs kill -9 2>/dev/null || echo 'No processes found on port 3002'",
     "release": "gh workflow run release.yml -f package=both -f bump=patch",
     "release:viewer": "gh workflow run release.yml -f package=viewer -f bump=patch",
@@ -23,10 +25,15 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^2.4.6",
+    "@playwright/test": "^1.58.2",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
     "dotenv-cli": "^11.0.0",
+    "jsdom": "^29.0.1",
     "turbo": "^2.8.15",
     "typescript": "5.9.3",
-    "ultracite": "^7.2.5"
+    "ultracite": "^7.2.5",
+    "vitest": "^4.1.0"
   },
   "engines": {
     "node": ">=18"

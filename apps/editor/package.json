@@ -6,9 +6,10 @@
   "scripts": {
     "dev": "node ../../node_modules/next/dist/bin/next dev --port 3002",
     "build": "node ../../node_modules/next/dist/bin/next build",
-    "start": "next start",
+    "start": "node ../../node_modules/next/dist/bin/next start",
     "lint": "biome lint",
     "check-types": "next typegen && tsc --noEmit",
+    "test": "node ../../node_modules/vitest/vitest.mjs run --config vitest.config.ts",
     "db:generate": "node ../../node_modules/drizzle-kit/bin.cjs generate",
     "db:push": "node ../../node_modules/drizzle-kit/bin.cjs push",
     "db:migrate": "node ../../node_modules/drizzle-kit/bin.cjs migrate",
