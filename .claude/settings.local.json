@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx supabase:*)",
+      "Bash(npx skills:*)",
+      "Bash(grep:*)",
+      "Bash(npx vercel:*)",
+      "Bash(bunx supabase:*)",
+      "Bash(export:*)",
+      "mcp__context7__resolve-library-id",
+      "Bash(bun add:*)",
+      "Bash(npx:*)",
+      "Bash(node:*)",
+      "Bash(source:*)",
+      "Bash(npx dotenv:*)",
+      "Bash(bun run:*)",
+      "Bash(npx turbo:*)",
+      "Bash(bun install:*)",
+      "Bash(SKIP_ENV_VALIDATION=true npx turbo:*)"
+    ]
+  }
+}
