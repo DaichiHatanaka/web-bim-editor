@@ -16,7 +16,8 @@
       "Bash(bun run:*)",
       "Bash(npx turbo:*)",
       "Bash(bun install:*)",
-      "Bash(SKIP_ENV_VALIDATION=true npx turbo:*)"
+      "Bash(SKIP_ENV_VALIDATION=true npx turbo:*)",
+      "Bash(printf:*)"
     ]
   }
 }
