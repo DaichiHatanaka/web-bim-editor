@@ -1,0 +1,41 @@
+{
+  "name": "@kuhl/viewer",
+  "version": "0.1.0",
+  "description": "3D viewer component for Kühl HVAC Editor",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "node ../../node_modules/typescript/bin/tsc --build",
+    "dev": "node ../../node_modules/typescript/bin/tsc --build --watch",
+    "test": "node ../../node_modules/vitest/vitest.mjs run --config vitest.config.ts",
+    "check-types": "node ../../node_modules/typescript/bin/tsc --noEmit"
+  },
+  "peerDependencies": {
+    "@kuhl/core": "^0.1.0",
+    "@react-three/drei": "^10",
+    "@react-three/fiber": "^9",
+    "react": "^18 || ^19",
+    "three": "^0.183"
+  },
+  "dependencies": {
+    "zustand": "^5"
+  },
+  "devDependencies": {
+    "@pascal/typescript-config": "*",
+    "@types/react": "^19.2.2",
+    "@types/three": "^0.183.0",
+    "typescript": "5.9.3"
+  },
+  "license": "MIT"
+}

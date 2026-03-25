@@ -33,7 +33,7 @@
 
 ## 全体進捗
 
-- [ ] Phase 1: 基盤構築
+- [x] Phase 1: 基盤構築
 - [ ] Phase 2: ゾーニング＋負荷概算
 - [ ] Phase 3: 機器配置
 - [ ] Phase 4: 統合・品質
@@ -55,18 +55,18 @@
 
 ### タスク一覧
 
-- [ ] [TASK-0001: モノレポ設定・@kuhl/core パッケージ初期化](TASK-0001.md) - 8h (DIRECT) 🔵
-- [ ] [TASK-0002: @kuhl/viewer パッケージ初期化・apps/kuhl-editor セットアップ](TASK-0002.md) - 8h (DIRECT) 🔵
-- [ ] [TASK-0003: BaseNode・共通スキーマフォーク](TASK-0003.md) - 8h (TDD) 🔵
-- [ ] [TASK-0004: 空間ノードスキーマ（Plant, Building, Level）](TASK-0004.md) - 8h (TDD) 🔵
-- [ ] [TASK-0005: HvacZoneNodeスキーマ](TASK-0005.md) - 8h (TDD) 🔵
-- [ ] [TASK-0006: HvacEquipmentBase・PortDef・共通機器型](TASK-0006.md) - 8h (TDD) 🔵
-- [ ] [TASK-0007: 空調機器ノードスキーマ（全13種）](TASK-0007.md) - 8h (TDD) 🔵
-- [ ] [TASK-0008: ダクト・配管・System・ArchitectureRef・AnyNodeユニオン](TASK-0008.md) - 8h (TDD) 🔵
-- [ ] [TASK-0009: useSceneストアフォーク・CRUD・Zundo](TASK-0009.md) - 8h (TDD) 🔵
-- [ ] [TASK-0010: イベントバス・sceneRegistryフォーク](TASK-0010.md) - 8h (TDD) 🔵
-- [ ] [TASK-0011: useViewerストア・useEditorストア](TASK-0011.md) - 8h (TDD) 🔵
-- [ ] [TASK-0012: Viewer基盤コンポーネント・Canvas・Grid](TASK-0012.md) - 8h (TDD) 🔵
+- [x] [TASK-0001: モノレポ設定・@kuhl/core パッケージ初期化](TASK-0001.md) - 8h (DIRECT) 🔵
+- [x] [TASK-0002: @kuhl/viewer パッケージ初期化・apps/kuhl-editor セットアップ](TASK-0002.md) - 8h (DIRECT) 🔵
+- [x] [TASK-0003: BaseNode・共通スキーマフォーク](TASK-0003.md) - 8h (TDD) 🔵
+- [x] [TASK-0004: 空間ノードスキーマ（Plant, Building, Level）](TASK-0004.md) - 8h (TDD) 🔵
+- [x] [TASK-0005: HvacZoneNodeスキーマ](TASK-0005.md) - 8h (TDD) 🔵
+- [x] [TASK-0006: HvacEquipmentBase・PortDef・共通機器型](TASK-0006.md) - 8h (TDD) 🔵
+- [x] [TASK-0007: 空調機器ノードスキーマ（全13種）](TASK-0007.md) - 8h (TDD) 🔵
+- [x] [TASK-0008: ダクト・配管・System・ArchitectureRef・AnyNodeユニオン](TASK-0008.md) - 8h (TDD) 🔵
+- [x] [TASK-0009: useSceneストアフォーク・CRUD・Zundo](TASK-0009.md) - 8h (TDD) 🔵
+- [x] [TASK-0010: イベントバス・sceneRegistryフォーク](TASK-0010.md) - 8h (TDD) 🔵
+- [x] [TASK-0011: useViewerストア・useEditorストア](TASK-0011.md) - 8h (TDD) 🔵
+- [x] [TASK-0012: Viewer基盤コンポーネント・Canvas・Grid](TASK-0012.md) - 8h (TDD) 🔵
 
 ### 依存関係
 
@@ -90,9 +90,9 @@ TASK-0010 + TASK-0011 → TASK-0012
 
 ### タスク一覧
 
-- [ ] [TASK-0013: HvacZoneRenderer（半透明床面ポリゴン）](TASK-0013.md) - 8h (TDD) 🔵
-- [ ] [TASK-0014: ZoneDrawTool（ポリゴン描画ツール）](TASK-0014.md) - 8h (TDD) 🔵
-- [ ] [TASK-0015: LoadCalcSystem（m²単価法負荷概算）](TASK-0015.md) - 8h (TDD) 🔵
+- [x] [TASK-0013: HvacZoneRenderer（半透明床面ポリゴン）](TASK-0013.md) - 8h (TDD) 🔵
+- [x] [TASK-0014: ZoneDrawTool（ポリゴン描画ツール）](TASK-0014.md) - 8h (TDD) 🔵
+- [x] [TASK-0015: LoadCalcSystem（m²単価法負荷概算）](TASK-0015.md) - 8h (TDD) 🔵
 - [ ] [TASK-0016: IFC読込（web-ifc WASM）+ ArchitectureRefRenderer](TASK-0016.md) - 8h (TDD) 🟡
 - [ ] [TASK-0017: IFC読込UI・ファイルアップロード](TASK-0017.md) - 8h (TDD) 🔵
 - [ ] [TASK-0018: ゾーン一覧パネル・負荷集計表示](TASK-0018.md) - 8h (TDD) 🔵

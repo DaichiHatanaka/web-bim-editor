@@ -1,0 +1,36 @@
+{
+  "name": "@kuhl/core",
+  "version": "0.1.0",
+  "description": "Core library for Kühl HVAC Editor",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "node ../../node_modules/typescript/bin/tsc --build",
+    "dev": "node ../../node_modules/typescript/bin/tsc --build --watch",
+    "test": "node ../../node_modules/vitest/vitest.mjs run --config vitest.config.ts",
+    "check-types": "node ../../node_modules/typescript/bin/tsc --noEmit"
+  },
+  "dependencies": {
+    "mitt": "^3.0.1",
+    "nanoid": "^5.1.6",
+    "zod": "^4.3.5",
+    "zundo": "^2.3.0",
+    "zustand": "^5"
+  },
+  "devDependencies": {
+    "@pascal/typescript-config": "*",
+    "typescript": "5.9.3"
+  },
+  "license": "MIT"
+}
