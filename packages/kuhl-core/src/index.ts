@@ -30,6 +30,22 @@ export {
 } from './systems/zone/load-calc'
 export { LoadCalcSystem, processLoadCalc } from './systems/zone/load-calc-system'
 
+// Equipment System
+export {
+  calculatePortWorldPosition,
+  validatePortConnections,
+  getUnconnectedPorts,
+  processEquipmentSystem,
+  EquipmentSystem,
+} from './systems/equipment/equipment-system'
+
+// Capacity Matching
+export {
+  STANDARD_CAPACITIES,
+  matchCapacity,
+  getRecommendedCapacities,
+} from './systems/equipment/capacity-matching'
+
 // Events
 export {
   emitter,

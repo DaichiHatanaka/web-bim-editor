@@ -19,9 +19,10 @@
  *              docs/design/kuhl-hvac-editor/interfaces.ts — AnyNode型、AnyNodeType型
  */
 
-import React from 'react'
-import { useScene } from '@kuhl/core'
 import type { AnyNodeId } from '@kuhl/core'
+import { useScene } from '@kuhl/core'
+import type React from 'react'
+import { DiffuserRenderer } from './diffuser-renderer'
 import { FallbackRenderer } from './fallback-renderer'
 import { ZoneRenderer } from './zone-renderer'
 
@@ -83,12 +84,14 @@ export const NodeRenderer: React.FC<NodeRendererProps> = ({ nodeId }) => {
     // 【テスト対応】: TC-006（ahu）
     // 【後続タスク】: TASK-0021（EquipmentRenderer）等で順次置換
     // 🟡 黄信号: Phase 1段階でのFallbackRenderer適用は設計意図に基づく
+    case 'diffuser':
+      return <DiffuserRenderer nodeId={node.id} />
+
     case 'ahu':
     case 'pac':
     case 'fcu':
     case 'vrf_outdoor':
     case 'vrf_indoor':
-    case 'diffuser':
     case 'damper':
     case 'fan':
     case 'pump':

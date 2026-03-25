@@ -5,10 +5,20 @@ afterEach(() => {
 })
 
 if (!globalThis.requestAnimationFrame) {
-  globalThis.requestAnimationFrame = (callback: FrameRequestCallback) =>
-    setTimeout(() => callback(performance.now()), 16) as unknown as number
+  Object.defineProperty(globalThis, 'requestAnimationFrame', {
+    value: (callback: FrameRequestCallback) =>
+      setTimeout(() => callback(Date.now()), 16) as unknown as number,
+    writable: true,
+    configurable: true,
+    enumerable: true,
+  })
 }
 
 if (!globalThis.cancelAnimationFrame) {
-  globalThis.cancelAnimationFrame = (handle: number) => clearTimeout(handle)
+  Object.defineProperty(globalThis, 'cancelAnimationFrame', {
+    value: (handle: number) => clearTimeout(handle),
+    writable: true,
+    configurable: true,
+    enumerable: true,
+  })
 }

@@ -1,23 +1,30 @@
 /**
- * TASK-0021: EquipmentRenderer（LOD100 ボックス表示）
+ * TASK-0021/0022: EquipmentRenderer（LOD100 ボックス表示 + LOD200 プロシージャル・GLB）
  *
- * 【機能概要】: HvacEquipmentBase を継承する全機器ノードを LOD100 で BoxGeometry 描画する
+ * 【機能概要】: HvacEquipmentBase を継承する全機器ノードを LOD に応じて描画する
+ *              - LOD100: BoxGeometry による単純なボックス表示
+ *              - LOD200: ProceduralEquipment（タイプ別形状）または GlbModelRenderer（GLB モデル）
  *              React Three Fiber コンポーネント
- * 【実装方針】: zone-renderer.tsx パターンを踏襲し、useScene からノードを取得して
- *              BoxGeometry で描画する。TagLabel と PortMarkers を統合し、
- *              sceneRegistry への登録/解除を行う
- * 【テスト対応】: TC-HP-001〜TC-HP-007, TC-ERR-009〜TC-ERR-012, TC-SUP-016〜TC-SUP-018
- * 🔵 青信号: 要件定義書 FR-001〜FR-005、zone-renderer.tsx パターンから確認済み
+ * 【実装方針】: zone-renderer.tsx パターンを踏襲し、useScene からノードを取得して描画する
+ *              TagLabel と PortMarkers は LOD に関わらず常に表示する
+ *              sceneRegistry への登録/解除は LOD100 メッシュのみ対象
+ * 【テスト対応】: TC-HP-001〜TC-HP-007, TC-ERR-009〜TC-ERR-012, TC-SUP-016〜TC-SUP-018,
+ *               TC-LOD200-001〜TC-LOD200-016
+ * 🔵 青信号: 要件定義書 FR-001〜FR-005（TASK-0021）、FR-001〜FR-004（TASK-0022）から確認済み
  */
 
-import type { AnyNodeId, HvacEquipmentBase } from '@kuhl/core'
+import type { AnyNodeId, AnyNodeInferred } from '@kuhl/core'
 import { sceneRegistry, useScene } from '@kuhl/core'
 import type { FC } from 'react'
-import { useEffect, useMemo, useRef } from 'react'
+import { Suspense, useEffect, useMemo, useRef } from 'react'
 import * as THREE from 'three'
 import { getEquipmentColor } from '../../constants/equipment-colors'
 import { SCENE_LAYER } from '../../constants/layers'
+import { getLodRenderer } from './equipment-lod-utils'
+import { GlbModelRenderer } from './parts/glb-model-renderer'
+import { Lod100Fallback } from './parts/lod100-fallback'
 import { PortMarkers } from './parts/port-markers'
+import { ProceduralEquipment } from './parts/procedural-equipment'
 import { TagLabel } from './parts/tag-label'
 
 // ─── Props 型定義 ─────────────────────────────────────────────────────────
@@ -34,7 +41,7 @@ export interface EquipmentRendererProps {
 // 【機器タイプ集合】: HvacEquipmentBase を継承する全13種の機器タイプを定数として定義
 // 【パフォーマンス】: 関数呼び出しごとに Set を生成しないようモジュールスコープに配置
 // 🔵 青信号: 要件定義書 FR-001 対象ノードタイプ（全13種）から確認済み
-const EQUIPMENT_TYPES = new Set([
+const EQUIPMENT_TYPES = [
   'ahu',
   'pac',
   'fcu',
@@ -48,7 +55,11 @@ const EQUIPMENT_TYPES = new Set([
   'boiler',
   'cooling_tower',
   'valve',
-])
+ ] as const
+
+const EQUIPMENT_TYPE_SET = new Set<string>(EQUIPMENT_TYPES)
+
+type EquipmentNode = Extract<AnyNodeInferred, { type: (typeof EQUIPMENT_TYPES)[number] }>
 
 /**
  * 【機能概要】: ノードが機器ノード（HvacEquipmentBase）かどうかを判定する型ガード
@@ -60,7 +71,7 @@ const EQUIPMENT_TYPES = new Set([
  * @param node - 検証対象のノードオブジェクト
  * @returns node が HvacEquipmentBase 型ならば true
  */
-export function isEquipmentNode(node: unknown): node is HvacEquipmentBase {
+export function isEquipmentNode(node: unknown): node is EquipmentNode {
   // 【型チェック】: オブジェクトかつ null でないことを確認
   if (!node || typeof node !== 'object') return false
   const n = node as Record<string, unknown>
@@ -68,7 +79,7 @@ export function isEquipmentNode(node: unknown): node is HvacEquipmentBase {
   // 【必須フィールドチェック】: HvacEquipmentBase の必須フィールドが存在するか確認
   return (
     typeof n.type === 'string' &&
-    EQUIPMENT_TYPES.has(n.type) &&
+    EQUIPMENT_TYPE_SET.has(n.type) &&
     Array.isArray(n.dimensions) &&
     Array.isArray(n.position) &&
     Array.isArray(n.rotation) &&
@@ -188,6 +199,14 @@ export const EquipmentRenderer: FC<EquipmentRendererProps> = ({ nodeId }) => {
   // 🔵 青信号: 要件定義書 FR-003.2 から確認済み
   const tagLabelOffset: [number, number, number] = [0, dimensions[1] / 2 + 0.3, 0]
 
+  // 【LOD 判定】: getLodRenderer で LOD レンダラータイプを取得
+  // 🔵 青信号: FR-001.1〜FR-001.5 から確認済み
+  const lodType = getLodRenderer(equipmentNode.lod)
+  const equipmentColor = getEquipmentColor(equipmentNode.type)
+  // 【modelSrc 取得】: LOD200 GLB 読込に使用するモデルファイル URL
+  // 【型アサーション理由】: HvacEquipmentBase スキーマはオプショナルフィールドとして modelSrc を含む
+  const modelSrc = equipmentNode.modelSrc
+
   return (
     // 【グループ設定】: position と rotation を group で適用し visible を制御
     // 🔵 青信号: 要件定義書 FR-001.2, FR-001.3, FR-005.7 から確認済み
@@ -196,24 +215,41 @@ export const EquipmentRenderer: FC<EquipmentRendererProps> = ({ nodeId }) => {
       rotation={equipmentNode.rotation as [number, number, number]}
       visible={equipmentNode.visible !== false}
     >
-      {/* 【メッシュ描画】: BoxGeometry と MeshStandardMaterial でボックスを描画 */}
-      {/* 【SCENE_LAYER 割り当て】: onUpdate で SCENE_LAYER(0) に設定 */}
-      {/* 🔵 青信号: 要件定義書 FR-001.5 SCENE_LAYER 割り当てから確認済み */}
-      <mesh
-        ref={meshRef}
-        geometry={geometry}
-        material={material}
-        onUpdate={(self) => {
-          self.layers.set(SCENE_LAYER)
-        }}
-      />
+      {/* 【LOD 分岐】: LOD200 と LOD100 で描画コンポーネントを切り替える */}
+      {/* 🔵 青信号: FR-001.1〜FR-001.5 から確認済み */}
+      {lodType === 'lod200' ? (
+        modelSrc ? (
+          /* 【LOD200 + modelSrc あり】: GlbModelRenderer を Suspense でラップ */
+          /* Lod100Fallback を fallback として使用し、GLB ロード中もボックスを表示する */
+          <Suspense fallback={<Lod100Fallback dimensions={dimensions} color={equipmentColor} />}>
+            <GlbModelRenderer modelSrc={modelSrc} dimensions={dimensions} />
+          </Suspense>
+        ) : (
+          /* 【LOD200 + modelSrc なし】: ProceduralEquipment でプロシージャル形状を描画 */
+          <ProceduralEquipment
+            type={equipmentNode.type}
+            dimensions={dimensions}
+            color={equipmentColor}
+          />
+        )
+      ) : (
+        /* 【LOD100】: 従来の BoxGeometry ボックスを描画 */
+        <mesh
+          ref={meshRef}
+          geometry={geometry}
+          material={material}
+          onUpdate={(self) => {
+            self.layers.set(SCENE_LAYER)
+          }}
+        />
+      )}
 
-      {/* 【TagLabel 表示】: タグ名を機器上方に表示する */}
-      {/* 🔵 青信号: 要件定義書 FR-003, FR-005.6 から確認済み */}
+      {/* 【TagLabel 表示】: タグ名を機器上方に表示する（LOD に依らず常に表示） */}
+      {/* 🔵 青信号: 要件定義書 FR-001.6 から確認済み */}
       <TagLabel tag={equipmentNode.tag} offset={tagLabelOffset} />
 
-      {/* 【PortMarkers 表示】: ポートマーカーを表示する */}
-      {/* 🔵 青信号: 要件定義書 FR-004, FR-005.6 から確認済み */}
+      {/* 【PortMarkers 表示】: ポートマーカーを表示する（LOD に依らず常に表示） */}
+      {/* 🔵 青信号: 要件定義書 FR-001.6 から確認済み */}
       <PortMarkers ports={equipmentNode.ports ?? []} />
     </group>
   )

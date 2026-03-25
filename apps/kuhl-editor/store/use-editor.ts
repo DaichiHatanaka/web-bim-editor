@@ -7,7 +7,7 @@ export type Mode = 'select' | 'edit' | 'delete' | 'build'
 
 // Tools available across phases
 export type ZoneTool = 'select' | 'zone_draw' | 'zone_edit' | 'load_calc'
-export type EquipTool = 'select' | 'ahu_place' | 'pac_place' | 'fcu_place' | 'diffuser_place' | 'equipment_edit'
+export type EquipTool = 'select' | 'ahu_place' | 'pac_place' | 'fcu_place' | 'diffuser_place' | 'fan_place' | 'equipment_edit'
 export type RouteTool = 'select' | 'duct_route' | 'pipe_route' | 'fitting_place' | 'route_edit'
 export type CalcTool = 'select' | 'duct_sizing' | 'pipe_sizing'
 export type TakeoffTool = 'select' | 'quantity_takeoff'
@@ -17,7 +17,7 @@ export type Tool = ZoneTool | EquipTool | RouteTool | CalcTool | TakeoffTool
 // Phase → available tools mapping
 export const phaseTools: Record<Phase, readonly Tool[]> = {
   zone: ['select', 'zone_draw', 'zone_edit', 'load_calc'] as const,
-  equip: ['select', 'ahu_place', 'pac_place', 'fcu_place', 'diffuser_place', 'equipment_edit'] as const,
+  equip: ['select', 'ahu_place', 'pac_place', 'fcu_place', 'diffuser_place', 'fan_place', 'equipment_edit'] as const,
   route: ['select', 'duct_route', 'pipe_route', 'fitting_place', 'route_edit'] as const,
   calc: ['select', 'duct_sizing', 'pipe_sizing'] as const,
   takeoff: ['select', 'quantity_takeoff'] as const,

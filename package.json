@@ -29,6 +29,7 @@
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
     "dotenv-cli": "^11.0.0",
+    "fake-indexeddb": "^6.2.5",
     "jsdom": "^29.0.1",
     "turbo": "^2.8.15",
     "typescript": "5.9.3",

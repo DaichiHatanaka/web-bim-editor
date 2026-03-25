@@ -8,7 +8,11 @@
     "build": "node ../../node_modules/next/dist/bin/next build",
     "start": "node ../../node_modules/next/dist/bin/next start",
     "test": "node ../../node_modules/vitest/vitest.mjs run --config vitest.config.ts",
-    "check-types": "node ../../node_modules/next/dist/bin/next typegen && tsc --noEmit"
+    "check-types": "node ../../node_modules/next/dist/bin/next typegen && tsc --noEmit",
+    "db:generate": "node ../../node_modules/drizzle-kit/bin.cjs generate",
+    "db:push": "node ../../node_modules/drizzle-kit/bin.cjs push",
+    "db:migrate": "node ../../node_modules/drizzle-kit/bin.cjs migrate",
+    "db:studio": "node ../../node_modules/drizzle-kit/bin.cjs studio"
   },
   "dependencies": {
     "@kuhl/core": "*",
@@ -22,6 +26,8 @@
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
     "tailwindcss": "^4.2.1",
+    "drizzle-orm": "^0.45.1",
+    "postgres": "^3.4.8",
     "three": "^0.183.1"
   },
   "devDependencies": {
@@ -29,6 +35,8 @@
     "@types/node": "^22.19.12",
     "@types/react": "19.2.2",
     "@types/react-dom": "19.2.2",
+    "drizzle-kit": "^0.31.10",
+    "fake-indexeddb": "^6.2.5",
     "typescript": "5.9.3"
   }
 }

@@ -9,6 +9,7 @@ import { AhuPlaceTool } from './tools/ahu-place-tool'
 import { PacPlaceTool } from './tools/pac-place-tool'
 import { FcuPlaceTool } from './tools/fcu-place-tool'
 import { DiffuserPlaceTool } from './tools/diffuser-place-tool'
+import { FanPlaceTool } from './tools/fan-place-tool'
 import { EquipmentEditTool } from './tools/equipment-edit-tool'
 import { DuctRouteTool } from './tools/duct-route-tool'
 import { PipeRouteTool } from './tools/pipe-route-tool'
@@ -40,6 +41,7 @@ export function ToolManager() {
       pac_place: <PacPlaceTool key="pac_place" />,
       fcu_place: <FcuPlaceTool key="fcu_place" />,
       diffuser_place: <DiffuserPlaceTool key="diffuser_place" />,
+      fan_place: <FanPlaceTool key="fan_place" />,
       equipment_edit: <EquipmentEditTool key="equipment_edit" />,
       duct_route: <DuctRouteTool key="duct_route" />,
       pipe_route: <PipeRouteTool key="pipe_route" />,

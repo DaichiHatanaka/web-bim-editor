@@ -9,17 +9,25 @@ import { calculateZoneLoad } from './load-calc'
 // -----------------------------------------------------------------
 export function processLoadCalc(): void {
   const { dirtyNodes, nodes, updateNode, clearDirty } = useScene.getState()
+  const temporal = useScene.temporal.getState()
 
-  for (const id of Array.from(dirtyNodes)) {
-    const node = nodes[id]
-    if (!node || node.type !== 'hvac_zone') continue
+  // システム再計算による updateNode は undo/redo 履歴に含めない
+  temporal.pause()
 
-    const zone = node as HvacZoneNode
-    const loadResult = calculateZoneLoad(zone)
+  try {
+    for (const id of Array.from(dirtyNodes)) {
+      const node = nodes[id]
+      if (!node || node.type !== 'hvac_zone') continue
 
-    updateNode(id, { loadResult } as Partial<HvacZoneNode>)
-    // updateNode が markDirty を呼ぶため、無限ループを防ぐために直後に clearDirty する
-    clearDirty(id)
+      const zone = node as HvacZoneNode
+      const loadResult = calculateZoneLoad(zone)
+
+      updateNode(id, { loadResult } as Partial<HvacZoneNode>)
+      // updateNode が markDirty を呼ぶため、無限ループを防ぐために直後に clearDirty する
+      clearDirty(id)
+    }
+  } finally {
+    temporal.resume()
   }
 }
 

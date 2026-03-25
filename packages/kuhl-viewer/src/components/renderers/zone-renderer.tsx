@@ -5,11 +5,11 @@
  * React Three Fiber コンポーネント。
  */
 
+import type { AnyNodeId, ZoneUsage } from '@kuhl/core'
+import { sceneRegistry, useScene } from '@kuhl/core'
 import type { FC } from 'react'
 import { useEffect, useMemo, useRef } from 'react'
 import * as THREE from 'three'
-import { useScene, sceneRegistry } from '@kuhl/core'
-import type { ZoneUsage, AnyNodeId } from '@kuhl/core'
 import { ZONE_LAYER } from '../../constants/layers'
 
 // ─── カラーマップ ───────────────────────────────────────────────────────────
@@ -89,19 +89,14 @@ export const ZoneRenderer: FC<ZoneRendererProps> = ({ nodeId }) => {
   const node = useScene((state) => (nodeId ? state.nodes[nodeId] : undefined))
   const meshRef = useRef<THREE.Mesh>(null)
 
-  const boundary = (node?.type === 'hvac_zone' && isValidBoundary(node.boundary)
-    ? (node.boundary as [number, number][])
-    : null)
+  const boundary =
+    node?.type === 'hvac_zone' && isValidBoundary(node.boundary)
+      ? (node.boundary as [number, number][])
+      : null
 
-  const shape = useMemo(
-    () => (boundary ? boundaryToShape(boundary) : null),
-    [boundary],
-  )
+  const shape = useMemo(() => (boundary ? boundaryToShape(boundary) : null), [boundary])
 
-  const geometry = useMemo(
-    () => (shape ? new THREE.ShapeGeometry(shape) : null),
-    [shape],
-  )
+  const geometry = useMemo(() => (shape ? new THREE.ShapeGeometry(shape) : null), [shape])
 
   const material = useMemo(() => {
     if (!node || node.type !== 'hvac_zone') return null

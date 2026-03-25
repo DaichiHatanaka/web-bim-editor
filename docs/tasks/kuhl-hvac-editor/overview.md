@@ -35,8 +35,8 @@
 
 - [x] Phase 1: 基盤構築
 - [x] Phase 2: ゾーニング＋負荷概算
-- [ ] Phase 3: 機器配置
-- [ ] Phase 4: 統合・品質
+- [x] Phase 3: 機器配置
+- [x] Phase 4: 統合・品質
 
 ## マイルストーン
 
@@ -123,13 +123,13 @@ TASK-0010 + TASK-0012 → TASK-0020
 ### タスク一覧
 
 - [x] [TASK-0021: EquipmentRenderer（LOD100 ボックス表示）](TASK-0021.md) - 8h (TDD) 🔵
-- [ ] [TASK-0022: EquipmentRenderer（LOD200 プロシージャル・GLB）](TASK-0022.md) - 8h (TDD) 🟡
-- [ ] [TASK-0023: DiffuserRenderer](TASK-0023.md) - 8h (TDD) 🔵
-- [ ] [TASK-0024: EquipmentSystem（ポート位置計算）](TASK-0024.md) - 8h (TDD) 🔵
-- [ ] [TASK-0025: AhuPlaceTool・PacPlaceTool](TASK-0025.md) - 8h (TDD) 🔵
-- [ ] [TASK-0026: DiffuserPlaceTool・FanPlaceTool](TASK-0026.md) - 8h (TDD) 🔵
-- [ ] [TASK-0027: 諸元表パネル（SpecSheetPanel）](TASK-0027.md) - 8h (TDD) 🔵
-- [ ] [TASK-0028: 負荷→機器容量マッチング・系統ツリーパネル](TASK-0028.md) - 8h (TDD) 🔵
+- [x] [TASK-0022: EquipmentRenderer（LOD200 プロシージャル・GLB）](TASK-0022.md) - 8h (TDD) 🟡
+- [x] [TASK-0023: DiffuserRenderer](TASK-0023.md) - 8h (TDD) 🔵
+- [x] [TASK-0024: EquipmentSystem（ポート位置計算）](TASK-0024.md) - 8h (TDD) 🔵
+- [x] [TASK-0025: AhuPlaceTool・PacPlaceTool](TASK-0025.md) - 8h (TDD) 🔵
+- [x] [TASK-0026: DiffuserPlaceTool・FanPlaceTool](TASK-0026.md) - 8h (TDD) 🔵
+- [x] [TASK-0027: 諸元表パネル（SpecSheetPanel）](TASK-0027.md) - 8h (TDD) 🔵
+- [x] [TASK-0028: 負荷→機器容量マッチング・系統ツリーパネル](TASK-0028.md) - 8h (TDD) 🔵
 
 ### 依存関係
 
@@ -153,10 +153,10 @@ TASK-0015 + TASK-0025 + TASK-0027 → TASK-0028
 
 ### タスク一覧
 
-- [ ] [TASK-0029: DB設定・Drizzleスキーマ・マイグレーション](TASK-0029.md) - 8h (DIRECT) 🔵
-- [ ] [TASK-0030: プロジェクトCRUD・シーン永続化](TASK-0030.md) - 8h (TDD) 🔵
-- [ ] [TASK-0031: 認証統合・ページ保護](TASK-0031.md) - 8h (DIRECT) 🔵
-- [ ] [TASK-0032: 統合テスト・MVP品質確認](TASK-0032.md) - 8h (TDD) 🟡
+- [x] [TASK-0029: DB設定・Drizzleスキーマ・マイグレーション](TASK-0029.md) - 8h (DIRECT) 🔵
+- [x] [TASK-0030: プロジェクトCRUD・シーン永続化](TASK-0030.md) - 8h (TDD) 🔵
+- [x] [TASK-0031: 認証統合・ページ保護](TASK-0031.md) - 8h (DIRECT) 🔵
+- [x] [TASK-0032: 統合テスト・MVP品質確認](TASK-0032.md) - 8h (TDD) 🟡
 
 ### 依存関係
 

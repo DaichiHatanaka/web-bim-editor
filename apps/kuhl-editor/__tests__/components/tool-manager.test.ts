@@ -168,8 +168,8 @@ describe('ToolManager + PhaseBar Integration Tests', () => {
     it('all tools are unique identifiers', () => {
       const allTools = Object.values(phaseTools).flat()
       const uniqueTools = new Set(allTools)
-      // We should have 16 unique tools across all phases
-      expect(uniqueTools.size).toBe(16)
+      // We should have 17 unique tools across all phases (fan_place added in TASK-0026)
+      expect(uniqueTools.size).toBe(17)
     })
   })
 

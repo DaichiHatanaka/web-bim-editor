@@ -13,10 +13,13 @@ export const createNodesAction = (
     const nextRootIds = [...state.rootNodeIds]
 
     for (const { node, parentId } of ops) {
-      const newNode = {
-        ...node,
-        parentId: parentId ?? null,
-      }
+      const newNode: AnyNode =
+        parentId !== undefined
+          ? { ...node, parentId }
+          : (() => {
+              const { parentId: _omit, ...rest } = node as AnyNode & { parentId?: unknown }
+              return rest as AnyNode
+            })()
 
       nextNodes[newNode.id] = newNode
 

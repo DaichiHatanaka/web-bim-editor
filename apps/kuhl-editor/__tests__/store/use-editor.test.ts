@@ -74,7 +74,7 @@ describe('useEditor store', () => {
 
     it('equip phase has correct tools', () => {
       expect(phaseTools.equip).toEqual([
-        'select', 'ahu_place', 'pac_place', 'fcu_place', 'diffuser_place', 'equipment_edit',
+        'select', 'ahu_place', 'pac_place', 'fcu_place', 'diffuser_place', 'fan_place', 'equipment_edit',
       ])
     })
 
@@ -98,9 +98,9 @@ describe('useEditor store', () => {
       }
     })
 
-    it('total unique tools across all phases is 16', () => {
+    it('total unique tools across all phases is 17', () => {
       const allTools = new Set(Object.values(phaseTools).flat())
-      expect(allTools.size).toBe(16)
+      expect(allTools.size).toBe(17)
     })
   })
 

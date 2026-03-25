@@ -16,7 +16,7 @@
 
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import React from 'react'
-import { render, screen } from '@testing-library/react'
+import { cleanup, render, screen } from '@testing-library/react'
 
 // 【R3Fモック】: Node環境ではWebGL/WebGPUが使用できないため R3F をモック化
 vi.mock('@react-three/fiber', () => ({
@@ -47,6 +47,8 @@ describe('Viewer コンポーネント', () => {
   afterEach(() => {
     // 【テスト後処理】: モックをリセットして次のテストに影響しないよう状態を復元
     // 【状態復元】: vi.clearAllMocks() でモック呼び出し履歴をリセット
+    // 【DOM クリーンアップ】: cleanup() で各テスト後にレンダリング済みコンポーネントをアンマウント
+    cleanup()
     vi.clearAllMocks()
   })
 

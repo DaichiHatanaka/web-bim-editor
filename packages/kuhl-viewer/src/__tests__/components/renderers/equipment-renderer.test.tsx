@@ -534,10 +534,10 @@ describe('EquipmentRenderer テスト', () => {
       useScene.getState().createNode(ahuNode)
 
       // 【実際の処理実行】: EquipmentRenderer をレンダリング
-      const { getByText } = render(<EquipmentRenderer nodeId={ahuNode.id} />)
+      const { getAllByText } = render(<EquipmentRenderer nodeId={ahuNode.id} />)
 
       // 【結果検証】: tag テキストが DOM に存在すること
-      expect(getByText('AHU-101')).toBeDefined() // 【確認内容】: AHU-101 タグテキストが表示されること 🔵
+      expect(getAllByText('AHU-101').length).toBeGreaterThan(0) // 【確認内容】: AHU-101 タグテキストが表示されること 🔵
     })
 
     it('TC-ERR-011b: 空文字 tag の場合 TagLabel が描画されない（EquipmentRenderer 統合）', () => {

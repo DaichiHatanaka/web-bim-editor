@@ -6,6 +6,7 @@ export default defineConfig({
     environment: 'node',
     globals: true,
     include: ['src/**/*.test.{ts,tsx}'],
+    exclude: ['dist/**', 'node_modules/**'],
     setupFiles: [path.resolve(__dirname, '../../vitest.node.setup.ts')],
   },
 })

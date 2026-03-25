@@ -1,4 +1,4 @@
-import { describe, expect, it, vi } from 'vitest'
+import { afterEach, describe, expect, it, vi } from 'vitest'
 import { emitter, eventKey, eventSuffixes, type KuhlEvents, type NodeEvent } from '../../events/bus'
 
 describe('Event bus', () => {

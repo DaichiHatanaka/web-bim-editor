@@ -91,12 +91,10 @@ describe('node actions', () => {
       rootNodeIds: [firstBuilding.id, secondBuilding.id],
     })
 
-    const rafSpy = vi
-      .spyOn(globalThis, 'requestAnimationFrame')
-      .mockImplementation((callback: FrameRequestCallback) => {
-        callback(0)
-        return 0
-      })
+    vi.stubGlobal('requestAnimationFrame', (callback: FrameRequestCallback) => {
+      callback(0)
+      return 0
+    })
 
     updateNodesAction(set, get, [{ id: level.id, data: { parentId: secondBuilding.id } }])
 
@@ -107,7 +105,7 @@ describe('node actions', () => {
     expect(state.dirtyNodes.has(firstBuilding.id)).toBe(true)
     expect(state.dirtyNodes.has(secondBuilding.id)).toBe(true)
 
-    rafSpy.mockRestore()
+    vi.unstubAllGlobals()
   })
 
   it('deletes nodes, removes parent references, and updates collections', () => {

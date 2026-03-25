@@ -14,7 +14,7 @@
  * 参照設計文書: docs/design/kuhl-hvac-editor/architecture.md — レンダラーパターン
  */
 
-import React from 'react'
+import type React from 'react'
 
 type FallbackRendererProps = {
   /**
