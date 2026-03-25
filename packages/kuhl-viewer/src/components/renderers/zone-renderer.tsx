@@ -45,11 +45,12 @@ export function boundaryToShape(boundary: [number, number][]): THREE.Shape {
     return shape
   }
 
-  const [firstX, firstZ] = boundary[0]
+  const first = boundary[0]!
+  const [firstX, firstZ] = first
   shape.moveTo(firstX, firstZ)
 
   for (let i = 1; i < boundary.length; i++) {
-    const [x, z] = boundary[i]
+    const [x, z] = boundary[i]!
     shape.lineTo(x, z)
   }
 

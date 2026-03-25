@@ -34,7 +34,7 @@
 ## 全体進捗
 
 - [x] Phase 1: 基盤構築
-- [ ] Phase 2: ゾーニング＋負荷概算
+- [x] Phase 2: ゾーニング＋負荷概算
 - [ ] Phase 3: 機器配置
 - [ ] Phase 4: 統合・品質
 
@@ -93,11 +93,11 @@ TASK-0010 + TASK-0011 → TASK-0012
 - [x] [TASK-0013: HvacZoneRenderer（半透明床面ポリゴン）](TASK-0013.md) - 8h (TDD) 🔵
 - [x] [TASK-0014: ZoneDrawTool（ポリゴン描画ツール）](TASK-0014.md) - 8h (TDD) 🔵
 - [x] [TASK-0015: LoadCalcSystem（m²単価法負荷概算）](TASK-0015.md) - 8h (TDD) 🔵
-- [ ] [TASK-0016: IFC読込（web-ifc WASM）+ ArchitectureRefRenderer](TASK-0016.md) - 8h (TDD) 🟡
-- [ ] [TASK-0017: IFC読込UI・ファイルアップロード](TASK-0017.md) - 8h (TDD) 🔵
-- [ ] [TASK-0018: ゾーン一覧パネル・負荷集計表示](TASK-0018.md) - 8h (TDD) 🔵
-- [ ] [TASK-0019: ToolManager・フェーズ切替バー](TASK-0019.md) - 8h (TDD) 🔵
-- [ ] [TASK-0020: LevelVisibilitySystem・InteractiveSystem](TASK-0020.md) - 8h (TDD) 🔵
+- [x] [TASK-0016: IFC読込（web-ifc WASM）+ ArchitectureRefRenderer](TASK-0016.md) - 8h (TDD) 🟡
+- [x] [TASK-0017: IFC読込UI・ファイルアップロード](TASK-0017.md) - 8h (TDD) 🔵
+- [x] [TASK-0018: ゾーン一覧パネル・負荷集計表示](TASK-0018.md) - 8h (TDD) 🔵
+- [x] [TASK-0019: ToolManager・フェーズ切替バー](TASK-0019.md) - 8h (TDD) 🔵
+- [x] [TASK-0020: LevelVisibilitySystem・InteractiveSystem](TASK-0020.md) - 8h (TDD) 🔵
 
 ### 依存関係
 
@@ -122,7 +122,7 @@ TASK-0010 + TASK-0012 → TASK-0020
 
 ### タスク一覧
 
-- [ ] [TASK-0021: EquipmentRenderer（LOD100 ボックス表示）](TASK-0021.md) - 8h (TDD) 🔵
+- [x] [TASK-0021: EquipmentRenderer（LOD100 ボックス表示）](TASK-0021.md) - 8h (TDD) 🔵
 - [ ] [TASK-0022: EquipmentRenderer（LOD200 プロシージャル・GLB）](TASK-0022.md) - 8h (TDD) 🟡
 - [ ] [TASK-0023: DiffuserRenderer](TASK-0023.md) - 8h (TDD) 🔵
 - [ ] [TASK-0024: EquipmentSystem（ポート位置計算）](TASK-0024.md) - 8h (TDD) 🔵

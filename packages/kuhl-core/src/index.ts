@@ -44,3 +44,18 @@ export {
 
 // Hooks
 export { sceneRegistry } from './hooks/scene-registry/scene-registry'
+
+// IFC Import
+export {
+  createArchitectureRefNodeData,
+  filterTargetGeometries,
+  flatTransformationToMatrix4,
+  IFC_TYPE_COLOR_MAP,
+  initIfcApi,
+  isValidIfcBuffer,
+  parseIfcFile,
+  TARGET_IFC_TYPES,
+  type IfcParseResult,
+  type ParsedGeometry,
+  type ParsedStorey,
+} from './systems/ifc/ifc-import'
